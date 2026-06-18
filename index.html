@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Try...Catch Example</title>
+    <style>
+        body { font-family: sans-serif; }
+        .output { margin-top: 20px; padding: 10px; border: 1px solid #ccc; background-color: #f9f9f9; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+
+    <h1>JavaScript'te try...catch Yapısı ile Hata Yönetimi</h1>
+
+    <p>Bu örnek, JavaScript'te <code>try...catch</code> yapısının nasıl kullanıldığını gösterir.</p>
+
+    <h2>Senaryo 1: Başarılı İşlem</h2>
+    <button onclick="runScenario(1)">Çalıştır (Başarılı)</button>
+
+    <h2>Senaryo 2: Hata Oluşturan İşlem</h2>
+    <button onclick="runScenario(2)">Çalıştır (Hatalı)</button>
+
+    <div id="output" class="output"></div>
+
+    <script>
+        function runScenario(scenarioNumber) {
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = ''; // Önceki çıktıyı temizle
+
+            try {
+                // try bloğu: Hata oluşturması beklenen veya normalde çalışacak kod buraya yazılır.
+                if (scenarioNumber === 1) {
+                    const result = 10 + 5;
+                    outputDiv.innerHTML += `<p>Senaryo ${scenarioNumber}: İşlem başarılı. Sonuç: ${result}</p>`;
+                } else if (scenarioNumber === 2) {
+                    // Kasıtlı olarak bir hata oluşturuyoruz (örneğin, tanımsız bir değişkene erişim).
+                    let undefinedVariable;
+                    outputDiv.innerHTML += `<p>Senaryo ${scenarioNumber}: Bu satır çalışmayacak.</p>`;
+                    console.log(undefinedVariable.property);
+                }
+            } catch (error) {
+                // catch bloğu: try bloğu içinde bir hata oluştuğunda çalışır.
+                // 'error' nesnesi, hatanın detaylarını içerir.
+                outputDiv.innerHTML += `<p class='error'>Senaryo ${scenarioNumber}: Bir hata oluştu!</p>`;
+                outputDiv.innerHTML += `<p class='error'>Hata Mesajı: ${error.message}</p>`;
+                outputDiv.innerHTML += `<p class='error'>Hata Tipi: ${error.name}</p>`;
+                console.error('Detaylı hata bilgisi:', error);
+            } finally {
+                // finally bloğu: Hata oluşsun veya oluşmasın, her zaman çalışır.
+                // Genellikle kaynakları temizlemek için kullanılır.
+                outputDiv.innerHTML += `<p>Senaryo ${scenarioNumber}: finally bloğu çalıştı.</p>`;
+            }
+        }
+    </script>
+
+</body>
+</html>
